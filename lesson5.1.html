@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>chessmate</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+        }
+        .table {
+            display: flex;
+            flex-direction: column;
+            margin-top: 50px;
+            border: 1px solid black;
+        }
+        .row {
+            display: flex;
+        }
+        .cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            box-sizing: border-box;
+            border: 1px solid black
+        }
+
+        .black {
+            background: #999;
+        }
+
+        .figures {
+            font-size: 30px;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+<body>
+<script>
+    'use strict';
+
+    const chessmate = {
+        numberRow: ['1', '2', '3', '4', '5', '6', '7', '8'],
+        numberCol: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+        figuresWhite: ['&#9814;', '&#9816;', '&#9815;', '&#9813;', '&#9812;', '&#9815;', '&#9816;', '&#9814;'],
+        figuresBlack: ['&#9820;', '&#9822;', '&#9821;', '&#9819;', '&#9818;', '&#9821;', '&#9822;', '&#9820;',],
+
+        renderTable: function() {
+            const table = document.createElement('div');
+            table.className = 'table';
+            document.body.appendChild(table);
+            let getTable = document.querySelector('.table');
+
+            for (let i = 0; i < 10; i++) {
+                const row = document.createElement('div');
+                row.className = 'row';
+                getTable.appendChild(row);
+
+                for(let j = 0; j < 10; j++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+
+                    if ((i % 2 === 0 && j % 2 === 1 && j !== 9 && i !== 0) || (i % 2 === 1 && j % 2 === 0 && j !== 0 && i !== 9)) {
+                        cell.className = 'cell black';
+                    }
+                    if ((i !== 0 && i !== 9) && (j === 0 || j === 9)) {
+                        cell.innerHTML  = this.numberRow[chessmate.numberRow.length - i];
+                    }
+                    if ((i === 0 || i === 9) && (j !== 0 && j !== 9)) {
+                        cell.textContent  = this.numberCol[j - 1];
+                    }
+
+                    row.appendChild(cell);
+                }
+
+            }
+        },
+        setFigures: function() {
+            const pawnsWhite = document.querySelector('.row:nth-child(8)');
+            const figuresWhite = document.querySelector('.row:nth-child(9)');
+            const pawnsBlack = document.querySelector('.row:nth-child(3)');
+            const figuresBlack = document.querySelector('.row:nth-child(2)');
+
+            for (let i = 0; i < pawnsWhite.children.length; i++) {
+
+                if (i > 0 && i < 9) {
+                    pawnsWhite.children[i].innerHTML = '&#9817;';
+                    pawnsWhite.children[i].classList.add('figures');
+                }
+            }
+
+            for (let i = 0; i < pawnsBlack.children.length; i++) {
+
+                if (i > 0 && i < 9) {
+                    pawnsBlack.children[i].innerHTML = '&#9823;';
+                    pawnsBlack.children[i].classList.add('figures');
+                }
+            }
+
+            for (let i = 0; i < figuresWhite.children.length; i++) {
+
+                if (i > 0 && i < 9) {
+                    figuresWhite.children[i].innerHTML = this.figuresWhite[i-1];
+                    figuresWhite.children[i].classList.add('figures');
+                }
+
+            }
+
+            for (let i = 0; i < figuresBlack.children.length; i++) {
+
+                if (i > 0 && i < 9) {
+                    figuresBlack.children[i].innerHTML = this.figuresBlack[i-1];
+                    figuresBlack.children[i].classList.add('figures');
+                }
+
+            }
+        },
+    };
+
+    window.addEventListener('load', () => chessmate.renderTable());
+    window.addEventListener('load', () => chessmate.setFigures());
+
+</script>
+</body>
+
+
+
+
+</script>
+</body>
+</html>
